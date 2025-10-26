@@ -90,6 +90,14 @@
       box-shadow: 0 0 25px rgba(122, 47, 248, 0.8);
     }
 
+    .success {
+      color: #9cffb0;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-top: 1rem;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
     footer {
       position: fixed;
       bottom: 10px;
@@ -100,46 +108,37 @@
       color: #666;
     }
 
-    /* Mobile Optimization */
     @media (max-width: 480px) {
-      body {
-        padding: 1.5rem;
-      }
-
-      .container {
-        padding: 2rem 1.5rem;
-      }
-
-      h1 {
-        font-size: 1.4rem;
-      }
-
-      p {
-        font-size: 0.9rem;
-        margin-bottom: 1.6rem;
-      }
-
-      .verify-btn {
-        font-size: 1rem;
-        padding: 0.8rem 2rem;
-      }
-
-      .logo {
-        font-size: 1.3rem;
-        margin-bottom: 1rem;
-      }
+      body { padding: 1.5rem; }
+      .container { padding: 2rem 1.5rem; }
+      h1 { font-size: 1.4rem; }
+      p { font-size: 0.9rem; margin-bottom: 1.6rem; }
+      .verify-btn { font-size: 1rem; padding: 0.8rem 2rem; }
+      .logo { font-size: 1.3rem; margin-bottom: 1rem; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="verify-container">
     <div class="logo">TITAN VERIFY</div>
-    <h1>Verify your Discord Account</h1>
-    <p>Click the button below to verify<3</p>
-    <a class="verify-btn" href="https://discord.com/api/oauth2/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=https%3A%2F%2Fverify.titanlegit.com%2Fcallback&response_type=code&scope=identify%20guilds.join">
+    <h1 id="title">Verify your Discord Account</h1>
+    <p id="desc">Click the button below to verify and join the TitanLegit server.</p>
+    <a id="verify-btn" class="verify-btn" href="https://discord.com/oauth2/authorize?client_id=1432034618240012318&response_type=code&redirect_uri=https%3A%2F%2Fauth.titanlegit.com%2Fcallback&scope=guilds.join+identify">
       Verify with Discord
     </a>
+    <div id="success-msg" class="success" style="display:none;">✅ Successfully verified!</div>
   </div>
 
+  <footer>© 2025 TitanLegit Verification System</footer>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("code")) {
+      document.getElementById("verify-btn").style.display = "none";
+      document.getElementById("title").textContent = "Verification Complete";
+      document.getElementById("desc").textContent = "You can now close this tab or return to Discord.";
+      document.getElementById("success-msg").style.display = "block";
+    }
+  </script>
 </body>
 </html>
